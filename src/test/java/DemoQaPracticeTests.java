@@ -1,5 +1,4 @@
 import com.codeborne.selenide.Configuration;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -12,7 +11,8 @@ import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
 import static org.junit.jupiter.api.Assertions.*;
 
-public class SearchTests {
+public class DemoQaPracticeTests {
+    LocalDate randomDate = LocalDate.now().minusMonths(5).minusDays(20).minusYears(20);
     @BeforeAll
     static void beforeAll() {
         Configuration.browserSize = "1920x1080";
@@ -32,7 +32,7 @@ public class SearchTests {
     }
 
     @Test
-    void fillFormTest() {
+    void demoQaPracticeFormTest() {
         open("/automation-practice-form");
         executeJavaScript("$('#fixedban').remove()");
         executeJavaScript("$('footer').remove()");
@@ -40,9 +40,24 @@ public class SearchTests {
         $("#lastName").setValue("Boiko");
         $("#userEmail").setValue("stepan@boiko.com");
         $("#genterWrapper").$(byText("Male")).click();
-//        $("#currentAddress").setValue("Some address 1");
-//        $("#permanentAddress").setValue("Another address 1");
-//        $("#submit").click();
+        $("#userNumber").setValue("89132220022");
+        $("#dateOfBirthInput").click();
+        $(".react-datepicker__year-select").selectOptionByValue("2023");
+        $(".react-datepicker__month-dropdown-container").$(byText("April")).click();
+        $(".react-datepicker__month-container").$(byText("10")).click();
+        $("#subjectsContainer").click();
+        $("#subjectsInput").setValue("English").pressEnter();
+        $("#hobbies-checkbox-1").parent().$(byText("Sports")).click();
+        $("#uploadPicture").uploadFromClasspath("pictures/bulldog.png");
+        $("#currentAddress").setValue("random text");
+        $("#state").click();
+        $("#stateCity-wrapper").$(byText("NCR")).click();
+        $("#city").click();
+        $("#stateCity-wrapper").$(byText("Delhi")).click();
+        $("#submit").click();
+        $("#example-modal-sizes-title-lg").shouldHave(text("Thanks for submitting the form"));
+        $(".modal-body").shouldHave(text("Stepan Boiko"));
+
 
     }
 }
