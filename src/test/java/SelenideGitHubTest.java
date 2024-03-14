@@ -6,6 +6,7 @@ import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selectors.by;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
+import static java.lang.Thread.sleep;
 
 public class SelenideGitHubTest {
     @BeforeAll
@@ -22,6 +23,14 @@ public class SelenideGitHubTest {
         $(".filterable-active").shouldHave(text("SoftAssertions"));
         $(byText("SoftAssertions")).click();
         $(".markdown-body").shouldHave(text("Using JUnit5 extend test class:"));
-        sleep(1000);
+        //sleep(1000);
+    }
+
+    @Test
+    void githubHoverSolutions() {
+        open("https://github.com");
+        $(byText("Solutions")).hover();
+        $(byText("Enterprise")).click();
+        $("#hero-section-brand-heading").shouldHave(text("The AI-powered"));
     }
 }
